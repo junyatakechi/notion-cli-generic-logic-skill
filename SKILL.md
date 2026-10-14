@@ -1,8 +1,8 @@
 ---
 name: notion-cli-generic-logic
-description: Notionを扱うときの一般的な判断と、Notion REST APIを呼ぶ道具を持つ generic-logic スキル。Notionを使う人なら誰でも同じ答えになるが、AIの一般知識にはまだ無い判断（列の改名・型変更・selectの選択肢の入れ替えで値が黙って消える条件、新しいDBに付ける既定の列、APIでは作れないもの、公式MCPで本文を書くとファイル名が勝手にリンクになること、コメントの取り方と返信の仕方、公式MCPで読んだ本文の discussion-urls を未解決コメントの印にしないこと、語彙DBのキャッシュ、APIの呼び方）を、理由・却下した案とともに1判断1ファイルで references に持つ。道具として、ページ・ブロック・データソースの取得と更新、ページの作成、コメントの取得と返信、Markdown⇄Notionブロックの変換、プロパティの組み立てを scripts に持つ。依存するのは誰もが共有する環境（Notion API・公式MCP）だけで、導入先の環境（トークン・DBのID・どのDBに何を書くか）は持たない。Notionへの読み書きが必要な他のスキルが、判断を聞いて道具の使い方を受け取り、道具を写さずに自分で呼ぶ。データベースを作る・列を変える・選択肢を入れ替える・公式MCPでページ本文を書く前には、該当する判断に聞く。「Notionのコメントを拾って」「コメントを見て」「指摘を拾って」「コメントに答えて」「コメントに返信して」のように言われたときは、ユーザーから直接使う。既定は取得して内容を伝えるところまでで、返信するのは「返信して」「答えて」と明示されたときだけ。
+description: Notionを扱うときの一般的な判断と、Notion REST APIを呼ぶ道具を持つ generic-logic スキル。Notionを使う人なら誰でも同じ答えになるが、AIの一般知識にはまだ無い判断（列の改名・型変更・selectの選択肢の入れ替えで値が黙って消える条件、新しいDBに付ける既定の列、APIでは作れないもの、公式MCPで本文を書くとファイル名が勝手にリンクになること、Markdownからブロックへ変換するときの表と強調の書き方、書き込んだあとの確かめ方と崩れの直し方、コメントの取り方と返信の仕方、公式MCPで読んだ本文の discussion-urls を未解決コメントの印にしないこと、語彙DBのキャッシュ、APIの呼び方）を、理由・却下した案とともに1判断1ファイルで references に持つ。道具として、ページ・ブロック・データソースの取得と更新、ページの作成、コメントの取得と返信、Markdown⇄Notionブロックの変換、プロパティの組み立てを scripts に持つ。依存するのは誰もが共有する環境（Notion API・公式MCP）だけで、導入先の環境（トークン・DBのID・どのDBに何を書くか）は持たない。Notionへの読み書きが必要な他のスキルが、判断を聞いて道具の使い方を受け取り、道具を写さずに自分で呼ぶ。データベースを作る・列を変える・選択肢を入れ替える・公式MCPでページ本文を書く前には、該当する判断に聞く。「Notionのコメントを拾って」「コメントを見て」「指摘を拾って」「コメントに答えて」「コメントに返信して」のように言われたときは、ユーザーから直接使う。既定は取得して内容を伝えるところまでで、返信するのは「返信して」「答えて」と明示されたときだけ。
 metadata:
-  version: "0.1.2"
+  version: "0.2.0"
   repository: "https://github.com/junyatakechi/notion-cli-generic-logic"
 ---
 
@@ -114,6 +114,8 @@ create_page({"parent": {"data_source_id": ds_id}, "properties": {...}})
 | コメントの扱い | [comments.md](references/comments.md) | コメントをどう取り、誰に、どの経路で返信するか | — | コメントに関わる作業の前・コメントの付いた表を書き換える前・公式MCPで読んだ本文に `discussion-urls` が見えたとき |
 | 語彙DBのキャッシュ | [vocabulary-cache.md](references/vocabulary-cache.md) | 語彙DBを処理の中で引くとき、どう読むか | — | 語彙DBを引くコードを書く前 |
 | APIの呼び方 | [client-usage.md](references/client-usage.md) | どの入口から呼び、何を呼び出し側で書かないか | — | Notionを読み書きするコードを書く前 |
+| Markdownからブロックへの変換 | [markdown-to-blocks.md](references/markdown-to-blocks.md) | `markdown_to_blocks` に渡す本文の表と強調をどう書くか | — | `markdown_to_blocks` に本文を渡すコードを書く前 |
+| 書き込んだあとの確かめ方 | [write-verification.md](references/write-verification.md) | 作成・追記のあとに何を確かめ、崩れていたらどう直すか | — | ページを作る・本文を書くコードを書く前・崩れを直す前 |
 
 ## 依存の順
 
