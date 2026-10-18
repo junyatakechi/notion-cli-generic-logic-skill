@@ -15,7 +15,7 @@ metadata:
 | | このスキル |
 |---|---|
 | 依存してよい環境 | 誰もが共有する環境だけ（Notion REST API・公式のNotion MCP） |
-| 持たないもの | 判断の対象（ページ・DB・列）と、導入先の環境。トークンはスキルの外の環境ファイルに置き、DBのIDやどのDBに何を書くかは呼び出し側が持つ |
+| 持たないもの | 判断の対象（ページ・DB・列）と、導入先の環境。トークンはプロジェクトのフォルダ直下の `.env` に置き、DBのIDやどのDBに何を書くかは呼び出し側が持つ |
 | 持つ道具 | 手続きに使う道具だけ（APIとの通信と、値の変換）。判断に使う道具は持たない |
 | 共有するとき | 混ぜて1つに育てる。新しく踏んだ落とし穴は、判断として足していく |
 
@@ -84,21 +84,21 @@ create_page({"parent": {"data_source_id": ds_id}, "properties": {...}})
 | 例外 | 意味 |
 |---|---|
 | `NotionError` | 基底。スクリプトはこれを捕まえる |
-| `NotionAuthError` | トークンファイルが無い / `NOTION_TOKEN` 未設定 |
+| `NotionAuthError` | `NOTION_TOKEN` が環境変数にも起動フォルダの `.env` にも無い |
 | `NotionAPIError` | APIがエラーを返した。`.status` にHTTPステータス |
 
 ### シェルから起動するスクリプト
 
-いずれも `~/.claude-skills-env/notion-cli-generic-logic.env` から `NOTION_TOKEN` を読み、結果をJSONで標準出力に出す。HTTPエラーのときは標準エラーに内容を出し、0以外で終了する。別のトークンを一時的に使いたいときは、環境変数 `NOTION_ENV_FILE` にファイルの絶対パスを渡す。
+いずれも環境変数 `NOTION_TOKEN`、無ければ起動フォルダ（プロジェクトのフォルダ直下）の `.env` から `NOTION_TOKEN` を読み、結果をJSONで標準出力に出す。HTTPエラーのときは標準エラーに内容を出し、0以外で終了する。別のトークンを一時的に使いたいときは、環境変数 `NOTION_TOKEN` に渡す。プロジェクトのフォルダから `<skill-dir>/scripts/...` の形で起動し、スキルのフォルダへ cd しない。
 
 | スクリプト | 中身 |
 |---|---|
-| `scripts/get_page.sh <page_id>` | ページを取得する |
-| `uv run scripts/get_block_children.py <block_id>` | ブロックの子を再帰で取得する。ページ本文全体なら `page_id` を渡す |
-| `uv run scripts/query_data_source.py <data_source_id> [body.json]` | データソースをクエリする（ページネーション解決済み） |
-| `scripts/create_page.sh <body.json>` | ページを作成する |
-| `scripts/update_page.sh <page_id> <body.json>` | ページのプロパティを更新する・アーカイブする |
-| `scripts/update_block.sh <block_id> <body.json>` | ブロックを更新する（本文の既存の行を書き換える） |
+| `<skill-dir>/scripts/get_page.sh <page_id>` | ページを取得する |
+| `uv run <skill-dir>/scripts/get_block_children.py <block_id>` | ブロックの子を再帰で取得する。ページ本文全体なら `page_id` を渡す |
+| `uv run <skill-dir>/scripts/query_data_source.py <data_source_id> [body.json]` | データソースをクエリする（ページネーション解決済み） |
+| `<skill-dir>/scripts/create_page.sh <body.json>` | ページを作成する |
+| `<skill-dir>/scripts/update_page.sh <page_id> <body.json>` | ページのプロパティを更新する・アーカイブする |
+| `<skill-dir>/scripts/update_block.sh <block_id> <body.json>` | ブロックを更新する（本文の既存の行を書き換える） |
 
 ## 索引
 
@@ -135,7 +135,7 @@ create_page({"parent": {"data_source_id": ds_id}, "properties": {...}})
 | 却下した案 | 選ばなかった案と、その理由。記録が無ければ「記録なし」と書く |
 | 当てはまる範囲と限界 | どこまで使えるか |
 
-- **導入先の環境は書かない。** トークン・DBのID・どのDBに何を書くかは、呼び出し側か環境ファイルが持つ。
+- **導入先の環境は書かない。** トークン・DBのID・どのDBに何を書くかは、呼び出し側か `.env` が持つ。
 - **環境の仕様に合わせた値は、道具のコードの定数が正。** レート制限・再試行・APIのバージョンのような値は、人が決めるものではないので判断ファイルに値の表として置かない。判断の本文から「`notion_client.py` の定数が正」と指す。
 - **道具は値の表を読まない。** 多くのスキルが読み込むたびにimportするので、表の書き損じ1つで、使うすべてのスキルが止まるため。作成者が決めた値が道具に要るときは、コードに定数として置き、決めた理由を判断ファイルに書く。
 
@@ -145,7 +145,7 @@ create_page({"parent": {"data_source_id": ds_id}, "properties": {...}})
 
 | 合図 | 足りないもの |
 |---|---|
-| `NotionAuthError`（スクリプトでは `Notion token file not found` / `NOTION_TOKEN is not set`） | `~/.claude-skills-env/notion-cli-generic-logic.env`、またはその中の `NOTION_TOKEN` |
+| `NotionAuthError`（スクリプトでは `NOTION_TOKEN is not set`） | 起動フォルダの `.env`、またはその中の `NOTION_TOKEN` |
 | あるはずのページ・データソースで `NotionAPIError`（`.status` が404） | そのページへのIntegrationの接続 |
 | コメントの取得・返信で403、または中身の無い結果 | Integrationのコメント権限（[comments.md](references/comments.md)） |
 

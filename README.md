@@ -58,11 +58,11 @@ uv python install 3.14
 
 1. [Notionのインテグレーション画面](https://www.notion.so/profile/integrations)で Internal Integration を作り、トークン（`ntn_` で始まる。2024-09-25より前に発行したものは `secret_` で始まる）を控える。
 2. 読み書きしたいページやデータベースを開き、右上の「接続」からこのIntegrationを追加する。追加していないページはAPIから見えず、404になる。
-3. トークンを、スキルのフォルダの外にあるファイルへ保存する。`ntn_xxxxxxxx` は控えたトークンに置き換える。キーの名前は同梱の `.env.example` と同じ。
+3. トークンを、プロジェクトのフォルダ直下（Claude Code を起動するフォルダ）の `.env` に書く。`.env` はプロジェクトのスキルで共有するので、既にあれば1行足す。`ntn_xxxxxxxx` は控えたトークンに置き換える。キーの名前は同梱の `.env.example` と同じ。環境変数 `NOTION_TOKEN` があれば、そちらが優先される。
 
    ```bash
-   mkdir -p "$HOME/.claude-skills-env"
-   echo 'NOTION_TOKEN=ntn_xxxxxxxx' > "$HOME/.claude-skills-env/notion-cli-generic-logic.env"
+   cd <プロジェクトのフォルダ>
+   echo 'NOTION_TOKEN=ntn_xxxxxxxx' >> .env
    ```
 
 ### コメントに答えてもらうときの準備
@@ -119,10 +119,10 @@ Pythonのモジュールは次の4つ。標準ライブラリだけで動く。
 | `notion_props.py` | プロパティ値の組み立て（`title_prop`・`date_prop` など） |
 | `notion_tables.py` | ページ本文の表を、直前の見出しをキーにして読み出す |
 
-シェルからは次のように呼ぶ。結果はJSONで標準出力に出る。HTTPエラーのときは標準エラーに内容を出し、0以外で終了する。
+シェルからは、プロジェクトのフォルダ（`.env` のあるフォルダ）で次のように呼ぶ。結果はJSONで標準出力に出る。HTTPエラーのときは標準エラーに内容を出し、0以外で終了する。
 
 ```bash
-scripts/get_page.sh <page ID>
+~/.claude/skills/notion-cli-generic-logic/scripts/get_page.sh <page ID>
 ```
 
 Pythonからはimportして使う。数百件を読み書きするときも、シェルのスクリプトを繰り返し起動せずにこちらを使う。
@@ -138,7 +138,7 @@ create_page({"parent": {"data_source_id": "<data source ID>"}, "properties": {..
 
 - レート制限（約3リクエスト/秒）と、一時的な失敗（429・5xx・タイムアウト）の再試行はモジュールが受け持つ。呼び出し側で `time.sleep` やリトライを書かない。
 - エラーは `sys.exit` ではなく例外（`NotionError` とその派生）で返る。
-- 別のトークンを一時的に使いたいときは、環境変数 `NOTION_ENV_FILE` にファイルの絶対パスを渡す。
+- 別のトークンを一時的に使いたいときは、環境変数 `NOTION_TOKEN` に渡す。`.env` より優先される。
 
 ## Notionのコメントに答えてもらう
 
