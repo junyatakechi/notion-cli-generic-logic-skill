@@ -1,5 +1,5 @@
 #!/bin/sh
-# notion-cli-generic-logic: ブロック更新 (PATCH /v1/blocks/{block_id})
+# notion-cli-generic-logic-skill: ブロック更新 (PATCH /v1/blocks/{block_id})
 #
 # Usage: update_block.sh <block_id> <request_body.json>
 # request_body.json は Notion API の PATCH /v1/blocks/{id} がそのまま受け付ける形式

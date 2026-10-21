@@ -1,4 +1,4 @@
-"""notion-cli-generic-logic: Notionブロック⇄テキストの相互変換ヘルパー(標準ライブラリのみ)。
+"""notion-cli-generic-logic-skill: Notionブロック⇄テキストの相互変換ヘルパー(標準ライブラリのみ)。
 
 Markdown→Notionブロック / Notionブロック→テキスト の機械的な変換だけを行い、
 どんな本文を書くべきかの判断は持たない。Notionを読み書きする他のスキルから使う。

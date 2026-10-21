@@ -1,4 +1,4 @@
-# notion-cli-generic-logic
+# notion-cli-generic-logic-skill
 
 NotionをClaudeから扱うための、generic-logic スキル。
 Claudeに頼むと、Notionが黙って値を壊す落とし穴を避けながら編集したり、Notionのコメントを拾ったり返信したりする。
@@ -23,7 +23,7 @@ Claudeに頼むと、Notionが黙って値を壊す落とし穴を避けなが�
 スキルのフォルダでクローンする。フォルダ名はリポジトリ名のままでよい。
 
 ```bash
-git clone https://github.com/junyatakechi/notion-cli-generic-logic.git ~/.claude/skills/notion-cli-generic-logic
+git clone https://github.com/junyatakechi/notion-cli-generic-logic-skill.git ~/.claude/skills/notion-cli-generic-logic-skill
 ```
 
 特定のプロジェクトだけで使うなら、`<プロジェクト>/.claude/skills/` の中でクローンする。
@@ -79,7 +79,7 @@ Claudeに普段の言葉で頼むと、Claudeがこのスキルを読み込ん�
 ### Notionを編集するときの落とし穴を避けてもらう
 
 Claudeが次の作業をするとき、このスキルにまとめた注意点に沿って進める。
-確実に使わせたいときは、頼むときに「notion-cli-generic-logicの判断に沿って」と添える。
+確実に使わせたいときは、頼むときに「notion-cli-generic-logic-skillの判断に沿って」と添える。
 
 | 作業 | Claudeが守ること |
 |---|---|
@@ -122,14 +122,14 @@ Pythonのモジュールは次の4つ。標準ライブラリだけで動く。
 シェルからは、プロジェクトのフォルダ（`.env` のあるフォルダ）で次のように呼ぶ。結果はJSONで標準出力に出る。HTTPエラーのときは標準エラーに内容を出し、0以外で終了する。
 
 ```bash
-~/.claude/skills/notion-cli-generic-logic/scripts/get_page.sh <page ID>
+~/.claude/skills/notion-cli-generic-logic-skill/scripts/get_page.sh <page ID>
 ```
 
 Pythonからはimportして使う。数百件を読み書きするときも、シェルのスクリプトを繰り返し起動せずにこちらを使う。
 
 ```python
 import os, sys
-sys.path.insert(0, os.path.expanduser("~/.claude/skills/notion-cli-generic-logic/scripts"))
+sys.path.insert(0, os.path.expanduser("~/.claude/skills/notion-cli-generic-logic-skill/scripts"))
 from notion_client import NotionError, query_data_source, create_page
 
 pages = query_data_source("<data source ID>", {"filter": {...}})

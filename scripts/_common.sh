@@ -1,5 +1,5 @@
 #!/bin/sh
-# notion-cli-generic-logic: bashスクリプト共通処理(トークン読み込み・curl呼び出し)
+# notion-cli-generic-logic-skill: bashスクリプト共通処理(トークン読み込み・curl呼び出し)
 set -eu
 
 # 秘密情報は起動フォルダ(作業ディレクトリ)の .env に置く規約。プロジェクトのスキルはこの1つを共有する。

@@ -1,5 +1,5 @@
 #!/bin/sh
-# notion-cli-generic-logic: ページ取得 (GET /v1/pages/{page_id})
+# notion-cli-generic-logic-skill: ページ取得 (GET /v1/pages/{page_id})
 #
 # Usage: get_page.sh <page_id>
 # 標準出力にNotionのページオブジェクトJSONをそのまま出力する。

@@ -1,4 +1,4 @@
-"""notion-cli-generic-logic: Notionプロパティ組み立てヘルパー(標準ライブラリのみ)。
+"""notion-cli-generic-logic-skill: Notionプロパティ組み立てヘルパー(標準ライブラリのみ)。
 
 Notionのプロパティ値の形へ機械的に詰め替えるだけで、どんな値を入れるべきかの判断は
 持たない。通信は notion_client.py の担当。

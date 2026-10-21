@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.11"
 # ///
-"""notion-cli-generic-logic: ブロック子取得 (GET /v1/blocks/{block_id}/children、再帰対応)
+"""notion-cli-generic-logic-skill: ブロック子取得 (GET /v1/blocks/{block_id}/children、再帰対応)
 
 Usage: uv run get_block_children.py <block_id>
 

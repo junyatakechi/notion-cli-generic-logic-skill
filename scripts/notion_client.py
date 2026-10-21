@@ -1,4 +1,4 @@
-"""notion-cli-generic-logic: Notion REST APIのPythonクライアント(標準ライブラリのみ使用)。
+"""notion-cli-generic-logic-skill: Notion REST APIのPythonクライアント(標準ライブラリのみ使用)。
 
 このモジュールは**他スキルから直接importして使う公開モジュール**。
 Pythonから大量のリクエストを投げる場合（数百件の投入・更新など）は、scripts配下の
@@ -7,9 +7,9 @@ Pythonから大量のリクエストを投げる場合（数百件の投入・�
 
     import os, sys
     _ws = os.path.dirname(os.path.abspath(__file__))
-    while not os.path.isdir(os.path.join(_ws, ".claude", "skills", "notion-cli-generic-logic")) and os.path.dirname(_ws) != _ws:
+    while not os.path.isdir(os.path.join(_ws, ".claude", "skills", "notion-cli-generic-logic-skill")) and os.path.dirname(_ws) != _ws:
         _ws = os.path.dirname(_ws)
-    sys.path.insert(0, os.path.join(_ws, ".claude", "skills", "notion-cli-generic-logic", "scripts"))
+    sys.path.insert(0, os.path.join(_ws, ".claude", "skills", "notion-cli-generic-logic-skill", "scripts"))
     from notion_client import notion_request, notion_post_paginate, NotionError
 
 このモジュールが一手に引き受けるもの（他スキルで再実装しないこと）:
@@ -130,7 +130,7 @@ def load_token(force_reload=False):
     if not token:
         raise NotionAuthError(
             f"NOTION_TOKEN is not set (neither in the environment nor in {env_file_path()})\n"
-            "See the セットアップ section of notion-cli-generic-logic/README.md."
+            "See the セットアップ section of notion-cli-generic-logic-skill/README.md."
         )
 
     _token_cache = token

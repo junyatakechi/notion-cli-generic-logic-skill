@@ -1,5 +1,5 @@
 #!/bin/sh
-# notion-cli-generic-logic: ページ更新 (PATCH /v1/pages/{page_id})
+# notion-cli-generic-logic-skill: ページ更新 (PATCH /v1/pages/{page_id})
 #
 # Usage: update_page.sh <page_id> <request_body.json>
 # request_body.json は Notion API の PATCH /v1/pages/{id} がそのまま受け付ける形式

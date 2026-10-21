@@ -1,9 +1,9 @@
 ---
-name: notion-cli-generic-logic
+name: notion-cli-generic-logic-skill
 description: "文脈: Notion。種類: 一般的な業務領域の判断。使う場面: この文脈の判断を直接聞かれたときに使う。この文脈の作業の前に読み、索引の「いつ聞くか」に当たる判断を聞く。"
 metadata:
-  version: "0.2.1"
-  repository: "https://github.com/junyatakechi/notion-cli-generic-logic"
+  version: "0.3.0"
+  repository: "https://github.com/junyatakechi/notion-cli-generic-logic-skill"
 ---
 
 # Notionの一般的な判断
@@ -49,7 +49,7 @@ metadata:
 
 ```python
 import os, sys
-sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "notion-cli-generic-logic", "scripts")))
+sys.path.insert(0, os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "notion-cli-generic-logic-skill", "scripts")))
 from notion_client import NotionError, query_data_source, create_page
 
 pages = query_data_source(ds_id, {"filter": {...}})

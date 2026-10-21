@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.11"
 # ///
-"""notion-cli-generic-logic: データソースクエリ (POST /v1/data_sources/{id}/query、ページネーション対応)
+"""notion-cli-generic-logic-skill: データソースクエリ (POST /v1/data_sources/{id}/query、ページネーション対応)
 
 Usage: uv run query_data_source.py <data_source_id> [request_body.json]
 

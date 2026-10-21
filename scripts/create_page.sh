@@ -1,5 +1,5 @@
 #!/bin/sh
-# notion-cli-generic-logic: ページ作成 (POST /v1/pages)
+# notion-cli-generic-logic-skill: ページ作成 (POST /v1/pages)
 #
 # Usage: create_page.sh <request_body.json>
 # request_body.json は Notion API の POST /v1/pages がそのまま受け付ける形式
