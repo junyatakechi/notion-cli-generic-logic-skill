@@ -27,8 +27,8 @@
 
 ## 理由
 
-- `prop("R").map(current.prop("X"))` 系の数式は、どう書いても `Type error with formula` で弾かれた。
-- ビューのDSLに粒度の指定が無い。`GROUP BY "日付" BY month` は `Unknown directive` で弾かれた。
+- （原因）`prop("R").map(current.prop("X"))` 系の数式は、どう書いても `Type error with formula` で弾かれた。
+- （原因）ビューのDSLに粒度の指定が無い。`GROUP BY "日付" BY month` は `Unknown directive` で弾かれた。
 
 ## 却下した案
 

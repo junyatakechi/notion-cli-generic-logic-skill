@@ -21,9 +21,9 @@
 
 ## 理由
 
-1. `notion-update-data-source` に `title` を渡して改名したところ、アップロード画像のアイコンが灰色の既定アイコンにリセットされた（2026-09-13）。`properties` を省くと `requires a "properties" parameter` で400になる。`notion-update-data-source` のレスポンスとデータソースの `fetch` 結果は、復元後も `/icons/emoji-neutral_gray.svg` を返し続ける。
-2. `update_content` は別名への置換を受け付けて成功レスポンス（page_id）を返すが、実際には何も変わらない。2026-09-13に2度試して2度とも無変更だった。
-3. `ADD COLUMN "X" RELATION('<ds>', DUAL)` で作ると、相手側に `Related to <DB名> (<列名>)` という名前の列ができる。2026-09-07に試した結果は次のとおり。
+1. （原因）`notion-update-data-source` に `title` を渡して改名したところ、アップロード画像のアイコンが灰色の既定アイコンにリセットされた（2026-09-13）。`properties` を省くと `requires a "properties" parameter` で400になる。`notion-update-data-source` のレスポンスとデータソースの `fetch` 結果は、復元後も `/icons/emoji-neutral_gray.svg` を返し続ける。
+2. （原因）`update_content` は別名への置換を受け付けて成功レスポンス（page_id）を返すが、実際には何も変わらない。2026-09-13に2度試して2度とも無変更だった。
+3. （原因）`ADD COLUMN "X" RELATION('<ds>', DUAL)` で作ると、相手側に `Related to <DB名> (<列名>)` という名前の列ができる。2026-09-07に試した結果は次のとおり。
 
 | 経路 | 結果 |
 |---|---|

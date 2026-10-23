@@ -35,8 +35,8 @@ notion_request("PATCH", f"/data_sources/{ds_id}", body)
 
 ## 理由
 
-1. `notion-update-data-source` のDDLに列の説明を書く構文は無い。`ALTER COLUMN ... SET` に `description` を渡すと、列ではなくデータソース自体の説明になる。2026-09-03に3列へ書き込んで確認した。
-2. 手で書くと `number_format` などを取りこぼし、気づかないまま表示形式が変わる。
+1. （原因）`notion-update-data-source` のDDLに列の説明を書く構文は無い。`ALTER COLUMN ... SET` に `description` を渡すと、列ではなくデータソース自体の説明になる。2026-09-03に3列へ書き込んで確認した。
+2. （根拠）手で書くと `number_format` などを取りこぼし、気づかないまま表示形式が変わる。
 
 | 症状 | 原因 |
 |---|---|
@@ -44,9 +44,10 @@ notion_request("PATCH", f"/data_sources/{ds_id}", body)
 | `description should be a string` | rich text配列で渡した |
 | `description.length should be ≤ 280` | 280字の上限を超えた |
 
-4. DDLの `RENAME COLUMN` は、括弧付きの名前へは黙って効かない（[スキーマの変更](schema-change.md)）。
-5. `name` だけ渡すと、その列の `description` が空になった（2026-09-03に実際に消して書き直した）。
-6. `description` を付ける `PATCH` は、rich_text・title・number・selectでは効くが、**リレーション列では黙って無視される**（型オブジェクトを同送しても成功レスポンスが返り、読み直すと `None` のまま）。`description` だけを送ると、型オブジェクトが無いので400になる。2026-09-07に、2つのリレーション列で確認した。
+3. （知見）上の表の `description should be a string` と `description.length should be ≤ 280` の行。
+4. （原因）DDLの `RENAME COLUMN` は、括弧付きの名前へは黙って効かない（[スキーマの変更](schema-change.md)）。
+5. （原因）`name` だけ渡すと、その列の `description` が空になった（2026-09-03に実際に消して書き直した）。
+6. （原因）`description` を付ける `PATCH` は、rich_text・title・number・selectでは効くが、**リレーション列では黙って無視される**（型オブジェクトを同送しても成功レスポンスが返り、読み直すと `None` のまま）。`description` だけを送ると、型オブジェクトが無いので400になる。2026-09-07に、2つのリレーション列で確認した。
 
 ## 却下した案
 
