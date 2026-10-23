@@ -2,7 +2,7 @@
 name: notion-cli-generic-logic-skill
 description: "文脈: Notion。種類: 一般的な業務領域の判断。使う場面: この文脈の判断を直接聞かれたときに使う。この文脈の作業の前に読み、索引の「いつ聞くか」に当たる判断を聞く。"
 metadata:
-  version: "0.3.5"
+  version: "0.3.6"
   repository: "https://github.com/junyatakechi/notion-cli-generic-logic-skill"
   design: "人の判断を切り出すAIスキルの設計_v1.0.0"
   design-url: "https://app.notion.com/p/jay-t/AI-3eaf2fd6925e8102b86fee3b6b3dd5a3"
@@ -25,6 +25,7 @@ metadata:
 | APIの呼び方 | [client-usage.md](references/client-usage.md) | どの入口から呼び、何を呼び出し側で書かないか | — | — | Notionを読み書きするコードを書く前 |
 | Markdownからブロックへの変換 | [markdown-to-blocks.md](references/markdown-to-blocks.md) | `markdown_to_blocks` に渡す本文の表と強調をどう書くか | — | — | `markdown_to_blocks` に本文を渡すコードを書く前 |
 | 書き込んだあとの確かめ方 | [write-verification.md](references/write-verification.md) | 作成・追記のあとに何を確かめ、崩れていたらどう直すか | — | — | ページを作る・本文を書くコードを書く前・崩れを直す前 |
+| 設定の不足 | [missing-setup.md](references/missing-setup.md) | 道具の失敗が、どの設定の不足によるものか | — | — | 道具が `NotionAuthError` を返したとき・あるはずのページで404が返ったとき・コメントで403か中身の無い結果が返ったとき・公式MCPのツールが見つからないとき |
 
 # 手続きに使う道具
 
@@ -66,16 +67,6 @@ create_page({"parent": {"data_source_id": ds_id}, "properties": {...}})
 | `<skill-dir>/scripts/create_page.sh <body.json>` | ページを作成する |
 | `<skill-dir>/scripts/update_page.sh <page_id> <body.json>` | ページのプロパティを更新する・アーカイブする |
 | `<skill-dir>/scripts/update_block.sh <block_id> <body.json>` | ブロックを更新する（本文の既存の行を書き換える） |
-
-# 設定が無いとき
-
-次の合図が出たら先へ進まず、README の「セットアップ」をユーザーに案内する。
-
-| 合図 | 足りないもの |
-|---|---|
-| `NotionAuthError`（スクリプトでは `NOTION_TOKEN is not set`） | 起動フォルダの `.env`、またはその中の `NOTION_TOKEN` |
-| あるはずのページ・データソースで `NotionAPIError`（`.status` が404） | そのページへのIntegrationの接続 |
-| コメントの取得・返信で403、または中身の無い結果 | Integrationのコメント権限（[comments.md](references/comments.md)） |
 
 # このスキルの設計上の決まりごと
 

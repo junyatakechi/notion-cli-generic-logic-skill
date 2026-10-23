@@ -193,10 +193,7 @@ create_comment({
 | コメントを解決する | **×**（画面で行う） |
 | コメントが付いた文字範囲をRESTで知る | **×**（ブロック単位まで。MCPの `text-context` なら分かる） |
 
-**準備が足りないときの合図。** 次のときは先へ進まず、README の「セットアップ」をユーザーに案内する。
-
-- 403、または内容の無い部分的なレスポンスが返る → Integrationの **Read comments / Insert comments** が無効（既定はオフ）
-- 公式MCPのツール（`notion-get-users` など）が見つからない → 公式MCPが接続されていない
+準備が足りないときの合図は、[設定の不足](missing-setup.md)にある。
 
 ## 未決
 
