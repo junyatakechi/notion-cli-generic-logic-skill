@@ -12,6 +12,14 @@
 2. **セルの中では `|` をそのまま使えない。**
 3. **強調は `**太字**` を使う。** `<b>` などのHTMLのタグは効かない。
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 `scripts/notion_blocks.py` の `markdown_to_blocks(markdown_text)`。返ったブロックを `notion_client.append_block_children` か `create_page` の `children` に渡す。書いたあとの確かめ方は、[書き込んだあとの確かめ方と直し方](write-verification.md)に従う。
@@ -32,3 +40,7 @@
 
 - このスキルの `notion_blocks.py` の実装に依る。実装を変えたら、この判断も直す。
 - 公式MCPで本文を書くときの落とし穴は、[MCPで本文を書くときのリンク化](mcp-autolink.md)が持つ。
+
+## 未決
+
+なし

@@ -2,7 +2,7 @@
 name: notion-cli-generic-logic-skill
 description: "文脈: Notion。種類: 一般的な業務領域の判断。使う場面: この文脈の判断を直接聞かれたときに使う。この文脈の作業の前に読み、索引の「いつ聞くか」に当たる判断を聞く。"
 metadata:
-  version: "0.3.4"
+  version: "0.3.5"
   repository: "https://github.com/junyatakechi/notion-cli-generic-logic-skill"
   design: "人の判断を切り出すAIスキルの設計_v1.0.0"
   design-url: "https://app.notion.com/p/jay-t/AI-3eaf2fd6925e8102b86fee3b6b3dd5a3"
@@ -11,20 +11,20 @@ metadata:
 
 # 索引
 
-| 判断 | ファイル | 扱うこと | 依存する判断 | いつ聞くか |
-|---|---|---|---|---|
-| スキーマの変更 | [schema-change.md](references/schema-change.md) | 列の追加・改名・型変更で、値を壊さないためにどう進めるか | — | 列を変える前 |
-| selectの選択肢 | [select-options.md](references/select-options.md) | 選択肢を入れ替える・改名する・色を変えるとき、どう進めるか | — | 選択肢を変える前 |
-| 列の説明と改名 | [column-description.md](references/column-description.md) | 列の説明を書く・列を改名するとき、どの経路で何を送るか | — | 列の説明を書く前・括弧付きの名前へ改名する前 |
-| 新しいデータベース | [new-database.md](references/new-database.md) | DBを作るとき、何を付け、何を画面で直すか | — | DBを作る前 |
-| 改名の副作用 | [rename-side-effects.md](references/rename-side-effects.md) | データソースやリレーションの改名で、何が黙って変わるか | — | データソース・リレーションを改名する前 |
-| APIでできないこと | [api-limits.md](references/api-limits.md) | APIで作れるものと、画面で作るしかないものはどれか | — | 数式・ロールアップ・グループ化を作る前 |
-| MCPで本文を書くときのリンク化 | [mcp-autolink.md](references/mcp-autolink.md) | 頼んでいないリンクができるのをどう防ぐか | — | 公式MCPでページ本文を書く前 |
-| コメントの扱い | [comments.md](references/comments.md) | コメントをどう取り、誰に、どの経路で返信するか | — | コメントに関わる作業の前・コメントの付いた表を書き換える前・公式MCPで読んだ本文に `discussion-urls` が見えたとき |
-| 語彙DBのキャッシュ | [vocabulary-cache.md](references/vocabulary-cache.md) | 語彙DBを処理の中で引くとき、どう読むか | — | 語彙DBを引くコードを書く前 |
-| APIの呼び方 | [client-usage.md](references/client-usage.md) | どの入口から呼び、何を呼び出し側で書かないか | — | Notionを読み書きするコードを書く前 |
-| Markdownからブロックへの変換 | [markdown-to-blocks.md](references/markdown-to-blocks.md) | `markdown_to_blocks` に渡す本文の表と強調をどう書くか | — | `markdown_to_blocks` に本文を渡すコードを書く前 |
-| 書き込んだあとの確かめ方 | [write-verification.md](references/write-verification.md) | 作成・追記のあとに何を確かめ、崩れていたらどう直すか | — | ページを作る・本文を書くコードを書く前・崩れを直す前 |
+| 判断 | ファイル | 扱うこと | 依存する判断 | 計算 | いつ聞くか |
+|---|---|---|---|---|---|
+| スキーマの変更 | [schema-change.md](references/schema-change.md) | 列の追加・改名・型変更で、値を壊さないためにどう進めるか | — | — | 列を変える前 |
+| selectの選択肢 | [select-options.md](references/select-options.md) | 選択肢を入れ替える・改名する・色を変えるとき、どう進めるか | — | — | 選択肢を変える前 |
+| 列の説明と改名 | [column-description.md](references/column-description.md) | 列の説明を書く・列を改名するとき、どの経路で何を送るか | — | — | 列の説明を書く前・括弧付きの名前へ改名する前 |
+| 新しいデータベース | [new-database.md](references/new-database.md) | DBを作るとき、何を付け、何を画面で直すか | — | — | DBを作る前 |
+| 改名の副作用 | [rename-side-effects.md](references/rename-side-effects.md) | データソースやリレーションの改名で、何が黙って変わるか | — | — | データソース・リレーションを改名する前 |
+| APIでできないこと | [api-limits.md](references/api-limits.md) | APIで作れるものと、画面で作るしかないものはどれか | — | — | 数式・ロールアップ・グループ化を作る前 |
+| MCPで本文を書くときのリンク化 | [mcp-autolink.md](references/mcp-autolink.md) | 頼んでいないリンクができるのをどう防ぐか | — | — | 公式MCPでページ本文を書く前 |
+| コメントの扱い | [comments.md](references/comments.md) | コメントをどう取り、誰に、どの経路で返信するか | — | — | コメントに関わる作業の前・コメントの付いた表を書き換える前・公式MCPで読んだ本文に `discussion-urls` が見えたとき |
+| 語彙DBのキャッシュ | [vocabulary-cache.md](references/vocabulary-cache.md) | 語彙DBを処理の中で引くとき、どう読むか | — | — | 語彙DBを引くコードを書く前 |
+| APIの呼び方 | [client-usage.md](references/client-usage.md) | どの入口から呼び、何を呼び出し側で書かないか | — | — | Notionを読み書きするコードを書く前 |
+| Markdownからブロックへの変換 | [markdown-to-blocks.md](references/markdown-to-blocks.md) | `markdown_to_blocks` に渡す本文の表と強調をどう書くか | — | — | `markdown_to_blocks` に本文を渡すコードを書く前 |
+| 書き込んだあとの確かめ方 | [write-verification.md](references/write-verification.md) | 作成・追記のあとに何を確かめ、崩れていたらどう直すか | — | — | ページを作る・本文を書くコードを書く前・崩れを直す前 |
 
 # 手続きに使う道具
 
@@ -88,6 +88,10 @@ create_page({"parent": {"data_source_id": ds_id}, "properties": {...}})
 6. 判断ファイルで答えられない聞きたい事には、一般論で答えず「判断が無い」と返す。一般論はAIの一般知識で、作成者の判断ではないため。
 7. 判断ファイルの「未決」に当たったら、未決であることと、決めるまでの暫定の扱いを答えに含める。
 8. 索引の「依存する判断」にある判断は、先に出す。その答えを材料にするため。
+
+判断に使う道具を使うとき
+1. 計算は `uv run <skill-dir>/scripts/judge.py <判断> <材料.json>` で行う。<判断> は `references/` のファイル名（拡張子なし）。
+2. 材料は、判断ファイルの「求める材料」の形にそろえたJSONで渡す。別の判断の答えを材料にする判断は、その判断の材料も一緒に渡せば、計算の中で出す。
 
 手続きに使う道具の使い方を答えるとき
 1. 手続きに関わる判断では、答えに道具の使い方（どの道具を、どう呼び、何を守るか）を含める。

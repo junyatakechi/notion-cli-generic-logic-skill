@@ -28,6 +28,14 @@ for page in query_data_source(ds, {"page_size": 100}):
 # 2. 使用件数が0になったのを確かめてから、古い選択肢を一覧から外す
 ```
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 `query_data_source`（件数の確認・振り直す行の取得）・`update_page`（値の書き換え）・`notion_request("PATCH", f"/data_sources/{id}", ...)`（一覧の更新）。
@@ -62,3 +70,7 @@ for page in query_data_source(ds, {"page_size": 100}):
 ## 当てはまる範囲と限界
 
 - 色はAPIからは指定できない。画面で直す。
+
+## 未決
+
+なし

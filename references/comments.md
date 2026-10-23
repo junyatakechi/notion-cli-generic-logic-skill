@@ -27,6 +27,14 @@
 - 返信を頼まれたら、自分宛てのスレッド（→ 道具の3）**全件**へ返す。答えが決め切れないスレッドも飛ばさず、分かる範囲の回答と、確認したい点を書いて返す。
 - ここが持つのは取り方と返し方で、**何と答えるか**は呼び出し側の判断。
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 `get_comments`・`create_comment`・`notion_request`（`notion_client.py`）と、公式MCPの `notion-get-comments`・`notion-get-users`。
@@ -189,3 +197,7 @@ create_comment({
 
 - 403、または内容の無い部分的なレスポンスが返る → Integrationの **Read comments / Insert comments** が無効（既定はオフ）
 - 公式MCPのツール（`notion-get-users` など）が見つからない → 公式MCPが接続されていない
+
+## 未決
+
+なし

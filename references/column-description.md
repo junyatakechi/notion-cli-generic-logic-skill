@@ -29,6 +29,14 @@ notion_request("PATCH", f"/data_sources/{ds_id}", body)
                                    "description": "…"}}}   # ← 省くと説明が消える
 ```
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 `get_data_source`（現在の型オブジェクトの読み出し）・`notion_request("PATCH", f"/data_sources/{id}", ...)`。
@@ -60,3 +68,7 @@ notion_request("PATCH", f"/data_sources/{ds_id}", body)
 ## 当てはまる範囲と限界
 
 - 列の意味をデータ側に残す設計を採っているなら、リレーション列だけは手作業になることを見込んでおく。
+
+## 未決
+
+なし

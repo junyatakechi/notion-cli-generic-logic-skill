@@ -23,6 +23,14 @@ def load(force_reload=False):
     return _cache
 ```
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 `query_data_source`。
@@ -50,3 +58,7 @@ def load(force_reload=False):
 ## 当てはまる範囲と限界
 
 - import時には引かない。モジュールを読むだけで通信と認証が要る作りにすると、ネットワークの無い場面（テスト・構文確認）で読み込みそのものが落ちる。
+
+## 未決
+
+なし

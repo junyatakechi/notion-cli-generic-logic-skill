@@ -16,6 +16,14 @@
 6. 落ちたフィルタを貼り直すとき、**リレーションはページ名では書けない。** ページURLかUUIDで指定する（`FILTER "カテゴリ" = "https://app.notion.com/p/<id>"`）。
 7. **列を改名したら、列名を持っているコードを同時に直す。** Notion側だけ直すと、読み取りが旧名を引いて黙って `None` になる。
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 列の追加・改名・型変更は、公式MCPの `notion-update-data-source` にDDLを渡して行う。値の吸い出しは `query_data_source`、スキーマの読み直しは `get_data_source`。
@@ -42,3 +50,7 @@
 - `RENAME COLUMN` が括弧付きの名前を捨てるのは、**新しい名前**に括弧があるとき。元の名前に括弧があるのは問題ない（[改名の副作用](rename-side-effects.md)）。
 - 括弧付きの名前への改名は、REST の `PATCH` で行う（[列の説明と改名](column-description.md)）。
 - selectの選択肢の入れ替えは、[selectの選択肢](select-options.md)にある。
+
+## 未決
+
+なし

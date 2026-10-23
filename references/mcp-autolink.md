@@ -12,6 +12,14 @@
 2. **リンクにしたい実在のドメインは `[claude.ai](https://claude.ai)` と明示して書き、前後の日本語とは半角スペースで区切る。**
 3. **書いたら `notion-fetch` で読み直し、`](http://` を探す。** 意図しないリンクがあれば、`update_content` の `old_str` に**fetchで見えるリンク込みの文字列**をそのまま渡し、コード表記へ置き換える。同じ文字列が複数あるなら `replace_all_matches: true`。
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 公式MCPの `notion-update-page`・`notion-create-pages`・`notion-fetch`。
@@ -39,3 +47,7 @@
 ## 当てはまる範囲と限界
 
 - RESTの経路（`notion_blocks.py` → `append_block_children` など）では起きない見込み。RESTのrich textは `text.link` を明示したものだけがリンクになり、`notion_blocks.py` はリンクを付けない（RESTでは未実測）。ただし `notion_blocks.py` は `` ` `` をコード表記に変換しない（`**太字**` 以外は素通し）ので、REST経由で書くと `` ` `` がそのまま文字として残る。
+
+## 未決
+
+なし

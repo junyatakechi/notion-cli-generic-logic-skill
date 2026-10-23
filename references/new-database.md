@@ -33,6 +33,14 @@ notion_request("POST", "/databases", {
 })
 ```
 
+## 値
+
+なし
+
+## 計算
+
+なし
+
 ## 道具
 
 `notion_request("POST", "/databases", ...)`。
@@ -59,3 +67,7 @@ notion_request("POST", "/databases", {
 ## 当てはまる範囲と限界
 
 - 書式を画面で直したかは、APIからは確かめられない。
+
+## 未決
+
+なし
