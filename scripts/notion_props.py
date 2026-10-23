@@ -2,6 +2,15 @@
 
 Notionのプロパティ値の形へ機械的に詰め替えるだけで、どんな値を入れるべきかの判断は
 持たない。通信は notion_client.py の担当。
+
+公開する関数:
+  title_prop(text)                       タイトル
+  rich_text_prop(text)                   テキスト(2000文字ごとに分ける)
+  number_prop(value)                     数値
+  select_prop(name)                      セレクト
+  multi_select_prop(names)               マルチセレクト
+  date_prop(start_iso, end_iso=None)     日付
+  relation_prop(page_ids)                リレーション
 """
 
 

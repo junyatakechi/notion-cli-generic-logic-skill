@@ -8,6 +8,12 @@ Notionページの本文を歩き、**直前の見出し**をキーにして表�
     from notion_tables import read_page_tables, page_title, page_version
     info = read_page_tables(page_id)
     info["title"], info["version"], info["tables"][i]["heading"|"columns"|"rows"]
+
+公開する関数:
+  read_page_tables(page_id)        ページの題名・版・表をまとめて返す
+  tables_from_blocks(blocks)       取得済みのブロック列から表を集める
+  page_title(page)                 ページオブジェクトから題名を取る
+  page_version(title)              題名末尾の `_vX.Y.Z` を返す。無ければ None
 """
 import re
 

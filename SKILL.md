@@ -2,7 +2,7 @@
 name: notion-cli-generic-logic-skill
 description: "文脈: Notion。種類: 一般的な業務領域の判断。使う場面: この文脈の判断を直接聞かれたときに使う。この文脈の作業の前に読み、索引の「いつ聞くか」に当たる判断を聞く。"
 metadata:
-  version: "0.3.3"
+  version: "0.3.4"
   repository: "https://github.com/junyatakechi/notion-cli-generic-logic-skill"
   design: "人の判断を切り出すAIスキルの設計_v1.0.0"
   design-url: "https://app.notion.com/p/jay-t/AI-3eaf2fd6925e8102b86fee3b6b3dd5a3"
@@ -28,7 +28,7 @@ metadata:
 
 # 手続きに使う道具
 
-道具は `scripts/` にある。
+道具は `scripts/` にある。関数の一覧と引数は、各モジュールの冒頭の docstring が正。コードを書く前に読む。
 
 | モジュール | 役割 |
 |---|---|
@@ -46,23 +46,7 @@ pages = query_data_source(ds_id, {"filter": {...}})
 create_page({"parent": {"data_source_id": ds_id}, "properties": {...}})
 ```
 
-## `notion_client.py` の操作別の関数
-
-| 関数 | エンドポイント |
-|---|---|
-| `get_page(page_id)` | `GET /pages/{id}` |
-| `create_page(body)` | `POST /pages` |
-| `update_page(page_id, body)` | `PATCH /pages/{id}` |
-| `query_data_source(ds_id, body=None)` | `POST /data_sources/{id}/query`（ページネーション解決済み） |
-| `get_data_source(ds_id)` | `GET /data_sources/{id}`（スキーマ取得） |
-| `select_options(ds_id, prop_name)` | select/multi_selectの選択肢名のリスト |
-| `get_block_children(block_id, recursive=True)` | `GET /blocks/{id}/children`（再帰で `children` を埋め込む） |
-| `append_block_children(block_id, children)` | `PATCH /blocks/{id}/children`（100件以内） |
-| `update_block(block_id, body)` | `PATCH /blocks/{id}` |
-| `get_comments(block_id, recursive=False)` | `GET /comments?block_id=`（未解決のみ。`recursive=True` で本文の全ブロックを辿る） |
-| `create_comment(body)` | `POST /comments`（スレッドへの返信・ページ/ブロックへのコメント） |
-
-上に無いエンドポイントは、低レベルの `notion_request(method, path, body)` / `notion_post_paginate` / `notion_get_paginate` で叩く。
+## 例外
 
 | 例外 | 意味 |
 |---|---|

@@ -2,6 +2,21 @@
 
 Markdown→Notionブロック / Notionブロック→テキスト の機械的な変換だけを行い、
 どんな本文を書くべきかの判断は持たない。Notionを読み書きする他のスキルから使う。
+
+公開する関数(Markdown→ブロック):
+  markdown_to_blocks(markdown_text, max_blocks=None)   見出し・箇条書き・番号付き・引用・表・段落をブロックにする
+  table_block(header_cells, body_rows)                 表ブロックを組み立てる
+  heading_block(text, level=3)                         見出しブロックを組み立てる
+  text_to_paragraph_blocks(text, max_len=1900)         段落ブロックに分けて組み立てる
+  inline_rich_text(text, max_len=1900)                 `**太字**` を解釈して rich_text 配列にする
+
+公開する関数(ブロック・プロパティ→テキスト):
+  rich_text_to_plain(rich_text_list)                   rich_text 配列を平文にする
+  block_to_lines(block, depth=0)                       1ブロックを行のlistにする
+  blocks_to_text(blocks)                               ブロック列を1つのテキストにする
+  extract_section(blocks, heading_prefix)              テキストが heading_prefix で始まるブロックを1つ返す
+  property_value_to_str(prop)                          プロパティ値を文字列にする
+  pages_to_markdown_table(pages, columns)              ページ列を、指定した列のMarkdown表にする
 """
 import json
 import re

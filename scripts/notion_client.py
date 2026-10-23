@@ -4,13 +4,36 @@
 Pythonから大量のリクエストを投げる場合（数百件の投入・更新など）は、scripts配下の
 シェルスクリプトをsubprocessで起動するとプロセス起動のオーバーヘッドが支配的になるため、
 こちらを直接importすること。単発の呼び出しやシェルからの利用はscripts配下を使う。
+importの仕方は SKILL.md の「手続きに使う道具」にある(ここには書かない)。
 
-    import os, sys
-    _ws = os.path.dirname(os.path.abspath(__file__))
-    while not os.path.isdir(os.path.join(_ws, ".claude", "skills", "notion-cli-generic-logic-skill")) and os.path.dirname(_ws) != _ws:
-        _ws = os.path.dirname(_ws)
-    sys.path.insert(0, os.path.join(_ws, ".claude", "skills", "notion-cli-generic-logic-skill", "scripts"))
-    from notion_client import notion_request, notion_post_paginate, NotionError
+公開する関数(操作別):
+  get_page(page_id)                              GET /pages/{id}
+  create_page(body)                              POST /pages
+  update_page(page_id, body)                     PATCH /pages/{id}
+  query_data_source(ds_id, body=None)            POST /data_sources/{id}/query(ページネーション解決済み)
+  get_data_source(ds_id)                         GET /data_sources/{id}(スキーマ取得)
+  select_options(ds_id, prop_name)               select/multi_selectの選択肢名のリスト
+  get_block_children(block_id, recursive=True)   GET /blocks/{id}/children(再帰で children を埋め込む)
+  append_block_children(block_id, children)      PATCH /blocks/{id}/children(CHILDREN_LIMIT 件以内)
+  update_block(block_id, body)                   PATCH /blocks/{id}
+  get_comments(block_id, recursive=False)        GET /comments?block_id=(未解決のみ。recursive=True で本文の全ブロックを辿る)
+  create_comment(body)                           POST /comments(スレッドへの返信・ページ/ブロックへのコメント)
+
+上に無いエンドポイントを叩く低レベルの関数:
+  notion_request(method, path, body=None, timeout=60)        1回呼び出し、レスポンスをdictで返す
+  notion_post_paginate(path, body=None, results_key="results")   POST系のページネーションを解決する
+  notion_get_paginate(path, results_key="results")           GET系のページネーションを解決する
+
+環境と識別子:
+  env_file_path()                                起動フォルダの `.env` のパス
+  load_env(force_reload=False)                   `.env` を dict で返す(同じキーの環境変数が優先)
+  load_token(force_reload=False)                 NOTION_TOKEN を読む(プロセス内でキャッシュ)
+  page_id_from_url(url)                          ページURLからIDをダッシュ付きで取る
+  data_source_id_from_url(url, force_reload=False)   DBのページURLを data source ID に解決する
+  EnvDataSources(prefix, keys)                   `<PREFIX>_DB_<KEY>_URL` を data source ID に解決する遅延辞書
+
+定数: CHILDREN_LIMIT(1リクエストで追記できるブロック数の上限)
+例外: NotionError(基底)・NotionAuthError・NotionAPIError
 
 このモジュールが一手に引き受けるもの（他スキルで再実装しないこと）:
   - 認証トークンの読み込みとキャッシュ
