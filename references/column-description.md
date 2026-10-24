@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | 対象の列と、書きたい説明・新しい名前 | 対象の属性 | ○ | 文章 | 判断できない |
 
-## 答え
+## 答え方
 
 1. **列の説明は、DDLでは書けない。REST の `PATCH /data_sources/{id}` を使う。** DDLの `ALTER COLUMN ... SET` で書くと、データソース自体の説明になる。
 2. **その列の型オブジェクトを同送する。** 書き換えるつもりが無くても、`get_data_source` で現在値を読んでそのまま返す。
@@ -14,6 +14,20 @@
 4. **括弧付きの名前への改名は、この `PATCH` の `name` で行う。** プロパティIDは変わらないので、全行の値は保持される。
 5. **改名でも、残したい属性（`description` など）は毎回すべて同送する。** `PATCH` は列定義の差分更新ではなく、指定した列の再定義として効く。
 6. **リレーション列の説明は、Notionの画面で書く。** どちらの経路でも書けない。
+
+## 値
+
+なし
+
+## 計算
+
+なし
+
+## 道具
+
+`get_data_source`（現在の型オブジェクトの読み出し）・`notion_request("PATCH", f"/data_sources/{id}", ...)`。
+
+答え方1・2・5：
 
 ```python
 from notion_client import notion_request, get_data_source
@@ -28,18 +42,6 @@ notion_request("PATCH", f"/data_sources/{ds_id}", body)
                                    "number": {"format": "number"},
                                    "description": "…"}}}   # ← 省くと説明が消える
 ```
-
-## 値
-
-なし
-
-## 計算
-
-なし
-
-## 道具
-
-`get_data_source`（現在の型オブジェクトの読み出し）・`notion_request("PATCH", f"/data_sources/{id}", ...)`。
 
 ## 理由
 

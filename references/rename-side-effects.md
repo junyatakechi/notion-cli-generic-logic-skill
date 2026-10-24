@@ -6,12 +6,12 @@
 |---|---|---|---|---|
 | 改名する対象（データソース・リンクドDBの別名・dual relationの相手側の列） | 対象の属性 | ○ | 文章 | 判断できない |
 
-## 答え
+## 答え方
 
 1. **データソースを改名すると、アップロード画像のアイコンが既定のアイコンに戻る。**
-   - 改名の**前に**、`notion-fetch` でアイコンの値（`attachment:<uuid>:<filename>` 形式）を控える。
-   - 改名後に確かめ、消えていたら `notion-update-page` に `page_id`＝データベースIDと `icon`＝控えた文字列を渡して戻す。このとき `command: "update_properties"` には `properties: {}` を必ず添える。
-   - 実際の表示を確かめるときは、親ページを `fetch` して `<database ... icon="...">` を見る。
+   - 改名の**前に**、アイコンの値を控える。
+   - 改名後に確かめ、消えていたら控えた値で戻す。
+   - 実際の表示は、親ページで確かめる。
 2. **親ページ上のリンクドDBに付けた別名は、APIでは変えられない。** DBの改名に追随させるには、画面で手で直す。
 3. **dual relation の相手側の列名は、相手側のデータソースへ DDL の `RENAME COLUMN` を流して直す。** 他の経路では直らない。相手側の既定名（`Related to A (B)` など）は括弧を含むが、括弧なしの名前へ改名する分には効く。新しい名前に括弧があると捨てられる（→ [スキーマの変更](schema-change.md)）。
 
@@ -26,6 +26,12 @@
 ## 道具
 
 公式MCPの `notion-update-data-source`（改名・DDL）・`notion-fetch`・`notion-update-page`。
+
+答え方1：
+
+- 控えるのは、`notion-fetch` で取ったアイコンの値（`attachment:<uuid>:<filename>` 形式）。
+- 戻すときは、`notion-update-page` に `page_id`＝データベースIDと `icon`＝控えた文字列を渡す。`command: "update_properties"` には `properties: {}` を必ず添える。
+- 表示を確かめるときは、親ページを `fetch` して `<database ... icon="...">` を見る。
 
 ## 理由
 

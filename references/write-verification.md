@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | 書き込んだもの | 対象の属性 | ○ | ページの作成か、本文の追記か。本文なら、書いた表などの数 | 判断できない |
 
-## 答え
+## 答え方
 
 1. **ページを作成したら、ページを取り直して、親とプロパティを確かめる。**
 2. **本文を書いたら、子ブロックの種類を数えて、書いたとおりに入ったかを別に確かめる。** 例えば、`table` の数が本文に書いた表の数と合うか。
@@ -23,8 +23,8 @@
 
 ## 道具
 
-- 答え1：`notion_client.get_page(page_id)` で取り直す。
-- 答え2：`notion_client.get_block_children(page_id, recursive=False)` で子ブロックを取り、種類を数える。
+- 答え方1：`notion_client.get_page(page_id)` で取り直す。
+- 答え方2：`notion_client.get_block_children(page_id, recursive=False)` で子ブロックを取り、種類を数える。
 
 ```python
 from collections import Counter
@@ -33,7 +33,7 @@ kids = nc.get_block_children(page_id, recursive=False)
 print(Counter(k["type"] for k in kids))
 ```
 
-- 答え3：`notion_client.notion_request("DELETE", f"/blocks/{block_id}")` で子ブロックを消してから、`append_block_children` で入れ直す。`notion_request` のパスは先頭のスラッシュが要る。
+- 答え方3：`notion_client.notion_request("DELETE", f"/blocks/{block_id}")` で子ブロックを消してから、`append_block_children` で入れ直す。`notion_request` のパスは先頭のスラッシュが要る。
 - 道具の呼び方は、[APIの呼び方](client-usage.md)に従う。
 
 ## 理由

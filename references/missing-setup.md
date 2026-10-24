@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | 道具が返した失敗 | 導入先の環境 | ○ | `{"例外": "NotionAPIError", "status": 404, "操作": "get_page"}`。MCPなら、見つからなかったツールの名前 | 判断できない |
 
-## 答え
+## 答え方
 
 1. **`NotionAuthError`（スクリプトでは `NOTION_TOKEN is not set`）は、起動フォルダの `.env`、またはその中の `NOTION_TOKEN` が無い。** README の「セットアップ」の「Notionの準備」を案内する。
 2. **あるはずのページ・データソースで404が返ったら、そのページにIntegrationが接続されていない。** README の「セットアップ」の「Notionの準備」を案内する。

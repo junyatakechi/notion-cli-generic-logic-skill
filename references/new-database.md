@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | DB名と、作りたい列 | 対象の属性 | ○ | 文章 | 判断できない |
 
-## 答え
+## 答え方
 
 1. **頼まれていなくても、次の3列を必ず付ける。** 列名はこの英語表記で固定する。
 
@@ -18,6 +18,20 @@
 
 2. 3列とも、REST の `POST /databases` でそのまま作れる。MCPの `notion-create-database` なら、DDLに `"ID" UNIQUE_ID, "Created time" CREATED_TIME, "Last edited time" LAST_EDITED_TIME` を入れる。既存のDBへ後から足すなら、`ADD COLUMN` か `PATCH /data_sources/{id}` で足す。
 3. **date型の列は、Date format を「Year/Month/Day」、Time format を「24 hour」にする。ただしAPIからは設定できないので、作ったあとに画面で変える。** そのことを、作った直後にユーザーへ伝える。画面で直したかは、APIからは確かめられない。
+
+## 値
+
+なし
+
+## 計算
+
+なし
+
+## 道具
+
+`notion_request("POST", "/databases", ...)`。
+
+答え方1・2：
 
 ```python
 notion_request("POST", "/databases", {
@@ -32,18 +46,6 @@ notion_request("POST", "/databases", {
     }},
 })
 ```
-
-## 値
-
-なし
-
-## 計算
-
-なし
-
-## 道具
-
-`notion_request("POST", "/databases", ...)`。
 
 ## 理由
 
