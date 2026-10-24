@@ -17,7 +17,7 @@
    | `Last edited time` | last_edited_time | `{"last_edited_time": {}}` |
 
 2. 3列とも、REST の `POST /databases` でそのまま作れる。MCPの `notion-create-database` なら、DDLに `"ID" UNIQUE_ID, "Created time" CREATED_TIME, "Last edited time" LAST_EDITED_TIME` を入れる。既存のDBへ後から足すなら、`ADD COLUMN` か `PATCH /data_sources/{id}` で足す。
-3. **date型の列は、Date format を「Year/Month/Day」、Time format を「24 hour」にする。ただしAPIからは設定できないので、作ったあとに画面で変える。** そのことを、作った直後にユーザーへ伝える。
+3. **date型の列は、Date format を「Year/Month/Day」、Time format を「24 hour」にする。ただしAPIからは設定できないので、作ったあとに画面で変える。** そのことを、作った直後にユーザーへ伝える。画面で直したかは、APIからは確かめられない。
 
 ```python
 notion_request("POST", "/databases", {
@@ -57,16 +57,6 @@ notion_request("POST", "/databases", {
 | 同 `date.dateFormat` / `date.timeFormat` | **400** 同上 |
 | 同 `date.format` | **400** 同上 |
 | MCP DDL `ALTER COLUMN "Date" SET DATE FORMAT 'YYYY/MM/DD'` | **400** `Expected ADD, DROP, RENAME, or ALTER keyword, got "FORMAT"` |
-
-## 却下した案
-
-| 案 | 理由 |
-|---|---|
-| "read-only" の記述を見て、3列をAPIで作るのを諦める | 理由2 |
-
-## 当てはまる範囲と限界
-
-- 書式を画面で直したかは、APIからは確かめられない。
 
 ## 未決
 

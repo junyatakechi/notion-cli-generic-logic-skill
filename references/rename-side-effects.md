@@ -13,7 +13,7 @@
    - 改名後に確かめ、消えていたら `notion-update-page` に `page_id`＝データベースIDと `icon`＝控えた文字列を渡して戻す。このとき `command: "update_properties"` には `properties: {}` を必ず添える。
    - 実際の表示を確かめるときは、親ページを `fetch` して `<database ... icon="...">` を見る。
 2. **親ページ上のリンクドDBに付けた別名は、APIでは変えられない。** DBの改名に追随させるには、画面で手で直す。
-3. **dual relation の相手側の列名は、相手側のデータソースへ DDL の `RENAME COLUMN` を流して直す。** 他の経路では直らない。
+3. **dual relation の相手側の列名は、相手側のデータソースへ DDL の `RENAME COLUMN` を流して直す。** 他の経路では直らない。相手側の既定名（`Related to A (B)` など）は括弧を含むが、括弧なしの名前へ改名する分には効く。新しい名前に括弧があると捨てられる（→ [スキーマの変更](schema-change.md)）。
 
 ## 値
 
@@ -38,17 +38,6 @@
 | 相手側DSへ `PATCH {"<旧名>": {"name": "<新名>", ...}}` | **400** `<新名> is not a valid property schema` |
 | 自DSの `dual_property.synced_property_name` を書き換えて `PATCH` | **無反応**（成功レスポンス・値は変わらない） |
 | 相手側DSへ DDL `RENAME COLUMN "Related to A (B)" TO "A"` | **通る** |
-
-## 却下した案
-
-| 案 | 理由 |
-|---|---|
-| 別名を `update_content` で書き換える | 理由2。成功に見えて変わらない |
-| dual relationの相手側の名前を `PATCH` で直す | 理由3 |
-
-## 当てはまる範囲と限界
-
-- `RENAME COLUMN` が括弧付きの名前を捨てるのは、新しい名前に括弧があるとき（[スキーマの変更](schema-change.md)）。答えの3の既定名は括弧を含むが、括弧なしの名前へ改名する分には効く。
 
 ## 未決
 

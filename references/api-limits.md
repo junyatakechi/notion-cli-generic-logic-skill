@@ -38,14 +38,6 @@
 - （原因）`prop("R").map(current.prop("X"))` 系の数式は、どう書いても `Type error with formula` で弾かれた。
 - （原因）ビューのDSLに粒度の指定が無い。`GROUP BY "日付" BY month` は `Unknown directive` で弾かれた。
 
-## 却下した案
-
-記録なし。
-
-## 当てはまる範囲と限界
-
-- Notion APIの仕様が変われば変わる。弾かれ方が変わったら、試し直してこの表を直す。
-
 ## 未決
 
 なし
