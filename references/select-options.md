@@ -1,11 +1,5 @@
 # selectの選択肢
 
-## 求める材料
-
-| 材料 | 種類 | 必須 | 形 | 無いとき |
-|---|---|---|---|---|
-| 対象の列と、変えたい選択肢 | 対象の属性 | ○ | 文章 | 判断できない |
-
 ## 答え方
 
 1. **選択肢の一覧は、差分ではなく「送った集合がすべて」。** 一覧から外した選択肢は消え、その選択肢を持っていた行の値は**エラーも警告もなく空になる。** DDL（`ALTER COLUMN ... SET SELECT(...)`）でも REST の `PATCH` でも同じ。
@@ -19,28 +13,6 @@
 5. **一覧に載せ直す既存の選択肢は、現在の色をそのまま書く。** 色を変えたいなら画面で変える。
 6. **`ALTER COLUMN "X" SET SELECT(...)` は使わない。** 名前でしか指定できないぶん、書き落とした選択肢の値が黙って消える危険が `PATCH` より高い。
 7. 選択肢を変える `PATCH` には、その列の `description` も同送する（[列の説明と改名](column-description.md)）。
-
-## 値
-
-なし
-
-## 計算
-
-なし
-
-## 道具
-
-`query_data_source`（件数の確認・振り直す行の取得）・`update_page`（値の書き換え）・`notion_request("PATCH", f"/data_sources/{id}", ...)`（一覧の更新）。
-
-答え方3：
-
-```python
-# 1. 全行の値を新しい名前で書き直す(選択肢は自動で生える)
-for page in query_data_source(ds, {"page_size": 100}):
-    ...
-    update_page(page["id"], {"properties": {"対象": {"select": {"name": NEW[old]}}}})
-# 2. 使用件数が0になったのを確かめてから、古い選択肢を一覧から外す
-```
 
 ## 理由
 
@@ -64,3 +36,31 @@ for page in query_data_source(ds, {"page_size": 100}):
 ## 未決
 
 なし
+
+## 求める材料
+
+| 材料 | 種類 | 必須 | 形 | 無いとき |
+|---|---|---|---|---|
+| 対象の列と、変えたい選択肢 | 対象の属性 | ○ | 文章 | 判断できない |
+
+## 値
+
+なし
+
+## 計算
+
+なし
+
+## 道具
+
+`query_data_source`（件数の確認・振り直す行の取得）・`update_page`（値の書き換え）・`notion_request("PATCH", f"/data_sources/{id}", ...)`（一覧の更新）。
+
+答え方3：
+
+```python
+# 1. 全行の値を新しい名前で書き直す(選択肢は自動で生える)
+for page in query_data_source(ds, {"page_size": 100}):
+    ...
+    update_page(page["id"], {"properties": {"対象": {"select": {"name": NEW[old]}}}})
+# 2. 使用件数が0になったのを確かめてから、古い選択肢を一覧から外す
+```
