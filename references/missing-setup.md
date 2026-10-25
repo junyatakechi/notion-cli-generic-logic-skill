@@ -1,5 +1,9 @@
 # 設定の不足
 
+## 扱うこと
+
+道具の失敗が、どの設定の不足によるものか
+
 ## 答え方
 
 1. **`NotionAuthError`（スクリプトでは `NOTION_TOKEN is not set`）は、起動フォルダの `.env`、またはその中の `NOTION_TOKEN` が無い。** README の「セットアップ」の「Notionの準備」を案内する。

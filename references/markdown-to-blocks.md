@@ -1,5 +1,9 @@
 # Markdownからブロックへ変換するときの書き方
 
+## 扱うこと
+
+`markdown_to_blocks` に渡す本文の表と強調をどう書くか
+
 ## 答え方
 
 1. **`notion_blocks.markdown_to_blocks` に渡す本文の表は、パイプ形式のMarkdownで書く。** `| … |` のヘッダー行と `|---|---|` の区切り行を持つ形。HTMLの `<table>` は使わない。
