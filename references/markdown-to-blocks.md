@@ -2,7 +2,7 @@
 
 ## 扱うこと
 
-`markdown_to_blocks` に渡す本文の表と強調をどう書くか
+`markdown_to_blocks` に本文を渡すとき、表と強調をどう書くか
 
 ## 答え方
 
