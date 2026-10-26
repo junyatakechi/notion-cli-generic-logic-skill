@@ -1,26 +1,17 @@
 # notion-cli-generic-logic-skill
 
-NotionをClaudeから扱うための、generic-logic スキル。
-Claudeに頼むと、Notionが黙って値を壊す落とし穴を避けながら編集したり、Notionのコメントを拾ったり返信したりする。
-
-中身は、Notionを使う人なら誰でも同じ答えになる一般的な判断（落とし穴とその避け方）と、Notion REST APIを呼ぶ道具。どのデータを読み書きするかは決めない。
-他のスキルがNotionを読み書きするときに、判断を聞き、道具を部品として使える。
-
-- [SKILL.md](SKILL.md): 判断の索引・手続きに使う道具・このスキルの設計上の決まりごと
-- [references/](references/): 1判断1ファイル。どれも「扱うこと・答え方・理由・未決・求める材料・値・計算・道具」の形で書いてある
-- [scripts/](scripts/): Notion REST APIを呼ぶ道具。標準ライブラリだけで動く
+Notion を Claude から読み書きするときの、一般的な判断を持つロジックスキル。
+Notion が黙って値を壊す落とし穴とその避け方、コメントの扱いを答え、Notion REST API を呼ぶ道具を部品として渡す。
 
 ## 必要なもの
 
 - [Claude Code](https://docs.claude.com/en/docs/claude-code/overview)
-- Notionの Internal Integration
 - Python 3.11以上と [uv](https://docs.astral.sh/uv/)
 - `sh` と `curl`（WindowsではGit Bash）
-- Claudeに接続した公式の [Notion MCP](https://developers.notion.com/docs/mcp)（[コメントに答えてもらう](#notionのコメントに答えてもらう)ときだけ）
+- Notion の Internal Integration
+- Claude に接続した公式の [Notion MCP](https://developers.notion.com/docs/mcp)（コメントに答えてもらうときだけ）
 
 ## インストール
-
-スキルのフォルダでクローンする。フォルダ名はリポジトリ名のままでよい。
 
 ```bash
 git clone https://github.com/junyatakechi/notion-cli-generic-logic-skill.git ~/.claude/skills/notion-cli-generic-logic-skill
@@ -58,143 +49,20 @@ uv python install 3.14
 
 1. [Notionのインテグレーション画面](https://www.notion.so/profile/integrations)で Internal Integration を作り、トークン（`ntn_` で始まる。2024-09-25より前に発行したものは `secret_` で始まる）を控える。
 2. 読み書きしたいページやデータベースを開き、右上の「接続」からこのIntegrationを追加する。追加していないページはAPIから見えず、404になる。
-3. トークンを、プロジェクトのフォルダ直下（Claude Code を起動するフォルダ）の `.env` に書く。`.env` はプロジェクトのスキルで共有するので、既にあれば1行足す。`ntn_xxxxxxxx` は控えたトークンに置き換える。キーの名前は同梱の `.env.example` と同じ。環境変数 `NOTION_TOKEN` があれば、そちらが優先される。
-
-   ```bash
-   cd <プロジェクトのフォルダ>
-   echo 'NOTION_TOKEN=ntn_xxxxxxxx' >> .env
-   ```
+3. `.env.example` のキーを、プロジェクトのフォルダ直下（Claude Code を起動するフォルダ）の `.env` に足し、控えたトークンを書く。キーの中身は `.env.example` のコメントにある。`.env` はプロジェクトのスキルで共有する。
 
 ### コメントに答えてもらうときの準備
 
-[Notionのコメントに答えてもらう](#notionのコメントに答えてもらう)ときだけ要る。
+コメントを拾う・返信するときだけ要る。
 
 1. [Notionのインテグレーション画面](https://www.notion.so/profile/integrations)で、Integrationの「Read comments」と「Insert comments」を有効にする。既定はオフで、オフのままだと403になるか、中身の無い結果が返る。
-2. 公式の [Notion MCP](https://developers.notion.com/docs/mcp) をClaudeに接続する。どのスレッドがあなたの発言で止まっているかを見分けるのに使う。
+2. 公式の [Notion MCP](https://developers.notion.com/docs/mcp) をClaudeに接続する。
 
 ## 使い方
 
-Claudeに普段の言葉で頼むと、Claudeがこのスキルを読み込んで作業する。
+主に、アプリケーションスキルから呼ばれる。
+直接頼むときも、`/notion-cli-generic-logic-skill` で名前を指名する。指名しないと、このスキルは読み込まれない。
 
-### Notionを編集するときの落とし穴を避けてもらう
-
-Claudeが次の作業をするとき、このスキルにまとめた注意点に沿って進める。
-確実に使わせたいときは、頼むときに「notion-cli-generic-logic-skillの判断に沿って」と添える。
-
-| 作業 | Claudeが守ること |
-|---|---|
-| データベースの列を追加・改名・型変更する | 先に値をページIDつきで書き出し、変更は1つずつ効いたか確かめる |
-| selectの選択肢を入れ替える | 新しい選択肢を足す → 値を付け替える → 古い選択肢が0件なのを確かめてから消す |
-| 新しいデータベースを作る | `ID`・`Created time`・`Last edited time` の3列を必ず付ける |
-| 公式MCPでページ本文を書く | `CLAUDE.md` のようなファイル名をコード表記にし、勝手にリンクになるのを防ぐ |
-
-Notionはこれらの操作で、エラーを出さずに値を消すことがある。条件と実際に起きたことは、[references/](references/) の判断ごとのファイルにまとめている。
-
-date列の表示形式（年/月/日・24時間表記）はAPIでは設定できないので、データベースを作ったあとにNotionの画面で直す。
-
-Notionのコメントへの返信も頼める。公式MCPを併用する例外があるため、[後ろの節](#notionのコメントに答えてもらう)にまとめた。
-
-## 他のスキルから使う
-
-Notionを読み書きするスキルを作るときは、このスキルのスクリプトとモジュールを部品として使える。
-
-| 操作 | シェルから | Pythonから |
-|---|---|---|
-| ページを取得する | `scripts/get_page.sh` | `get_page` |
-| ページ本文を再帰で取得する | `scripts/get_block_children.py` | `get_block_children` |
-| データソースをクエリする | `scripts/query_data_source.py` | `query_data_source` |
-| ページを作成する | `scripts/create_page.sh` | `create_page` |
-| ページのプロパティを更新する | `scripts/update_page.sh` | `update_page` |
-| ブロックを更新する | `scripts/update_block.sh` | `update_block` |
-| ブロックを追加する | — | `append_block_children` |
-| コメントを取得する | — | `get_comments` |
-| コメントに返信する | — | `create_comment` |
-
-Pythonのモジュールは次の4つ。標準ライブラリだけで動く。
-
-| モジュール | 役割 |
-|---|---|
-| `notion_client.py` | API通信。認証・レート制限・ページネーション・再試行・エラー |
-| `notion_blocks.py` | Markdown→Notionブロック、Notionブロック→テキストの変換 |
-| `notion_props.py` | プロパティ値の組み立て（`title_prop`・`date_prop` など） |
-| `notion_tables.py` | ページ本文の表を、直前の見出しをキーにして読み出す |
-
-シェルからは、プロジェクトのフォルダ（`.env` のあるフォルダ）で次のように呼ぶ。結果はJSONで標準出力に出る。HTTPエラーのときは標準エラーに内容を出し、0以外で終了する。
-
-```bash
-~/.claude/skills/notion-cli-generic-logic-skill/scripts/get_page.sh <page ID>
-```
-
-Pythonからはimportして使う。数百件を読み書きするときも、シェルのスクリプトを繰り返し起動せずにこちらを使う。
-
-```python
-import os, sys
-sys.path.insert(0, os.path.expanduser("~/.claude/skills/notion-cli-generic-logic-skill/scripts"))
-from notion_client import NotionError, query_data_source, create_page
-
-pages = query_data_source("<data source ID>", {"filter": {...}})
-create_page({"parent": {"data_source_id": "<data source ID>"}, "properties": {...}})
-```
-
-- レート制限（約3リクエスト/秒）と、一時的な失敗（429・5xx・タイムアウト）の再試行はモジュールが受け持つ。呼び出し側で `time.sleep` やリトライを書かない。
-- エラーは `sys.exit` ではなく例外（`NotionError` とその派生）で返る。
-- 別のトークンを一時的に使いたいときは、環境変数 `NOTION_TOKEN` に渡す。`.env` より優先される。
-
-## Notionのコメントに答えてもらう
-
-ページに付いた未解決のコメントを取り、内容を伝える。返信を頼めば、あなたの問いかけで止まっているスレッドにClaudeが返信する。
-このスキルはREST APIで動くが、この機能だけは公式のNotion MCPも併用する。
-先に、セットアップの[コメントに答えてもらうときの準備](#コメントに答えてもらうときの準備)を済ませておく。
-
-### 頼み方
-
-ページのURLを貼って頼む。
-
-| 頼み方 | Claudeがすること |
-|---|---|
-| 「このページのコメントを拾って <URL>」 | 未解決のコメントを全部取り、内容を伝える。返信はしない |
-| 「このページのコメントを見て <URL>」「指摘を拾って <URL>」 | 同上 |
-| 「効率重視で、このページのコメントを拾って <URL>」 | 同上。コメントを公式MCPで一度に取る（→ [コメントの取り方](#コメントの取り方)） |
-| 「このページのコメントに返信して <URL>」「コメントに答えて <URL>」 | 未解決のコメントを全部取り、あなたの問いかけで止まっているスレッドすべてに返信する |
-
-- 返信するのは「返信して」「答えて」と頼んだときだけ。「拾って」だけでは返信しない。
-- 終わると、取得した件数が報告される。返信したときは返信した件数も報告される。
-
-### どのスレッドに返信するか
-
-スレッドの最後のコメントを誰が書いたかで決める。
-
-| スレッドの最後のコメント | Claudeの扱い |
-|---|---|
-| あなた | 返信する |
-| このIntegration（bot） | 返信済みとして飛ばす |
-| 他のメンバー | 飛ばす（あなた宛てとは限らないため） |
-
-返信はIntegrationの名前（bot）で投稿される。あなたの名前では投稿されない。
-
-### コメントの取り方
-
-既定ではREST APIで取る。公式MCPを使うのは例外で、頼まれたときだけ。
-
-| | 既定 | 「効率重視で」と頼んだとき |
-|---|---|---|
-| 使うもの | Notion REST API | 公式のNotion MCP |
-| 取り方 | 本文のブロックを1つずつ問い合わせる | ページ全体を1回で取る |
-| かかる時間 | ブロック数に比例する（約230ブロックで2分ほど） | 1回の呼び出しで済む |
-| どの記述へのコメントか | ブロック単位まで分かる | 選択された文字列まで分かる |
-
-- 取るのは未解決のコメントだけ。解決済みのコメントは、どちらの取り方でも取得の段階で除かれ、読まれない。
-- 返信は、どちらで取ったときもREST APIで行う。公式MCPで返信するとあなたの名前で投稿されてしまうため。
-
-### できないこと
-
-- コメントの解決（Resolve）。返信を読んだら、Notionの画面で解決する。
-- 文章の一部を選んで、新しいコメントを付けること。既存のスレッドへの返信と、ページやブロックへのコメントはできる。
-
-表の行や列を増減させる編集をすると、その表に付いたコメントは消える。返信を頼まれているときは、Claudeは返信を済ませてから表を直す。
-
-手順の詳細は [references/comments.md](references/comments.md) にある。
-
-## ライセンス
-
-[MIT License](LICENSE)
+- 「/notion-cli-generic-logic-skill このDBの列名を変えて <URL>」
+- 「/notion-cli-generic-logic-skill このページのコメントを拾って <URL>」
+- 「/notion-cli-generic-logic-skill このページのコメントに返信して <URL>」
