@@ -2,7 +2,7 @@
 name: notion-cli-generic-logic-skill
 description: "文脈: Notion。種類: 一般的な業務領域の判断。使う場面: 名前で指名されたときだけ使い、会話の内容からは選ばない。"
 metadata:
-  version: "0.3.16"
+  version: "0.3.17"
   repository: "https://github.com/junyatakechi/notion-cli-generic-logic-skill"
   design: "人の判断を切り出すAIスキルの設計_v1.0.0"
   design-url: "https://app.notion.com/p/jay-t/AI-3eaf2fd6925e8102b86fee3b6b3dd5a3"
@@ -11,21 +11,21 @@ metadata:
 
 # 索引
 
-| 判断名 | ファイル | 扱うこと | 依存する判断 | 計算 |
+| 判断名 | 扱うこと | ファイル | 依存する判断 | 計算 |
 |---|---|---|---|---|
-| スキーマの変更 | [schema-change.md](references/schema-change.md) | 列を追加・改名・型変更するとき、値を壊さないためにどう進めるか | — | — |
-| selectの選択肢 | [select-options.md](references/select-options.md) | 選択肢を入れ替える・改名する・色を変えるとき、どう進めるか | — | — |
-| 列の説明と改名 | [column-description.md](references/column-description.md) | 列の説明を書く・列を改名する（括弧付きの名前を含む）とき、どの経路で何を送るか | — | — |
-| 新しいデータベース | [new-database.md](references/new-database.md) | DBを作るとき、何を付け、何を画面で直すか | — | — |
-| 改名の副作用 | [rename-side-effects.md](references/rename-side-effects.md) | データソースやリレーションを改名するとき、何が黙って変わるか | — | — |
-| APIでできないこと | [api-limits.md](references/api-limits.md) | 数式・ロールアップ・グループ化などを作るとき、APIで作れるか、画面で作るしかないか | — | — |
-| MCPで本文を書くときのリンク化 | [mcp-autolink.md](references/mcp-autolink.md) | 公式MCPでページ本文を書くとき、頼んでいないリンクができるのをどう防ぐか | — | — |
-| コメントの扱い | [comments.md](references/comments.md) | コメントに関わる作業をするとき・コメントの付いた表の行や列を増減させるとき、コメントをどう取り、誰に、どの経路で返信し、スレッドをどう守るか | — | — |
-| 語彙DBのキャッシュ | [vocabulary-cache.md](references/vocabulary-cache.md) | 語彙DBを処理の中で引くとき、どう読むか | — | — |
-| APIの呼び方 | [client-usage.md](references/client-usage.md) | Notionを読み書きするコードを書くとき、どの入口から呼び、何を呼び出し側で書かないか | — | — |
-| Markdownからブロックへの変換 | [markdown-to-blocks.md](references/markdown-to-blocks.md) | `markdown_to_blocks` に本文を渡すとき、表と強調をどう書くか | — | — |
-| 書き込んだあとの確かめ方 | [write-verification.md](references/write-verification.md) | ページを作った・本文を書いたあと、何を確かめ、崩れていたらどう直すか | — | — |
-| 設定の不足 | [missing-setup.md](references/missing-setup.md) | 道具が `NotionAuthError`・404・403 を返したとき、公式MCPのツールが見つからないとき、どの設定の不足によるものか | — | — |
+| スキーマの変更 | 列を追加・改名・型変更するとき、値を壊さないためにどう進めるか | [schema-change.md](references/schema-change.md) | — | — |
+| selectの選択肢 | 選択肢を入れ替える・改名する・色を変えるとき、どう進めるか | [select-options.md](references/select-options.md) | — | — |
+| 列の説明と改名 | 列の説明を書く・列を改名する（括弧付きの名前を含む）とき、どの経路で何を送るか | [column-description.md](references/column-description.md) | — | — |
+| 新しいデータベース | DBを作るとき、何を付け、何を画面で直すか | [new-database.md](references/new-database.md) | — | — |
+| 改名の副作用 | データソースやリレーションを改名するとき、何が黙って変わるか | [rename-side-effects.md](references/rename-side-effects.md) | — | — |
+| APIでできないこと | 数式・ロールアップ・グループ化などを作るとき、APIで作れるか、画面で作るしかないか | [api-limits.md](references/api-limits.md) | — | — |
+| MCPで本文を書くときのリンク化 | 公式MCPでページ本文を書くとき、頼んでいないリンクができるのをどう防ぐか | [mcp-autolink.md](references/mcp-autolink.md) | — | — |
+| コメントの扱い | コメントに関わる作業をするとき・コメントの付いた表の行や列を増減させるとき、コメントをどう取り、誰に、どの経路で返信し、スレッドをどう守るか | [comments.md](references/comments.md) | — | — |
+| 語彙DBのキャッシュ | 語彙DBを処理の中で引くとき、どう読むか | [vocabulary-cache.md](references/vocabulary-cache.md) | — | — |
+| APIの呼び方 | Notionを読み書きするコードを書くとき、どの入口から呼び、何を呼び出し側で書かないか | [client-usage.md](references/client-usage.md) | — | — |
+| Markdownからブロックへの変換 | `markdown_to_blocks` に本文を渡すとき、表と強調をどう書くか | [markdown-to-blocks.md](references/markdown-to-blocks.md) | — | — |
+| 書き込んだあとの確かめ方 | ページを作った・本文を書いたあと、何を確かめ、崩れていたらどう直すか | [write-verification.md](references/write-verification.md) | — | — |
+| 設定の不足 | 道具が `NotionAuthError`・404・403 を返したとき、公式MCPのツールが見つからないとき、どの設定の不足によるものか | [missing-setup.md](references/missing-setup.md) | — | — |
 
 # 手続きに使う道具
 
