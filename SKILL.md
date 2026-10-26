@@ -2,7 +2,7 @@
 name: notion-cli-generic-logic-skill
 description: "文脈: Notion。種類: 一般的な業務領域の判断。使う場面: 名前で指名されたときだけ使い、会話の内容からは選ばない。"
 metadata:
-  version: "0.3.15"
+  version: "0.3.16"
   repository: "https://github.com/junyatakechi/notion-cli-generic-logic-skill"
   design: "人の判断を切り出すAIスキルの設計_v1.0.0"
   design-url: "https://app.notion.com/p/jay-t/AI-3eaf2fd6925e8102b86fee3b6b3dd5a3"

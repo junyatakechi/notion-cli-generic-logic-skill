@@ -37,11 +37,11 @@ dual relation の相手側の列名は、相手側のデータソースへ DDL �
    | 自DSの `dual_property.synced_property_name` を書き換えて `PATCH` | 無反応（成功レスポンス・値は変わらない） |
    | 相手側DSへ DDL `RENAME COLUMN "Related to A (B)" TO "A"` | 通る |
 
-## 未決
+## 判断定数
 
 なし
 
-## 判断定数
+## 未決
 
 なし
 

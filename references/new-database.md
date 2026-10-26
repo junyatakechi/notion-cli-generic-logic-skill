@@ -42,11 +42,11 @@ date型の列は、Date format を「Year/Month/Day」、Time format を「24 ho
    | 同 `date.format` | 400 同上 |
    | MCP DDL `ALTER COLUMN "Date" SET DATE FORMAT 'YYYY/MM/DD'` | 400 `Expected ADD, DROP, RENAME, or ALTER keyword, got "FORMAT"` |
 
-## 未決
+## 判断定数
 
 なし
 
-## 判断定数
+## 未決
 
 なし
 
