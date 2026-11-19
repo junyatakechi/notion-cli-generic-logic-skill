@@ -59,7 +59,7 @@ RESTの経路（`notion_blocks.py` → `append_block_children` など）では�
 
 | 材料 | 種類 | 必須 | 形 | 無いとき |
 |---|---|---|---|---|
-| 書く本文 | 対象の属性 | ○ | Markdown | 判断できない |
+| 書く本文 | 対象の値 | ○ | Markdown | 判断できない |
 
 ## 計算
 
