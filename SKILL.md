@@ -2,7 +2,7 @@
 name: notion-cli-generic-logic-skill
 description: "文脈: Notion。種類: 一般的な業務知識。使う場面: 名前で指名されたときだけ使い、会話の内容からは選ばない。"
 metadata:
-  version: "0.3.24"
+  version: "0.3.25"
   repository: "https://github.com/junyatakechi/notion-cli-generic-logic-skill"
   design: "人の判断を切り出すAgent Skillsの設計_v3.6.0"
   design-url: "https://app.notion.com/p/3eaf2fd6925e8102b86fee3b6b3dd5a3"
@@ -19,6 +19,7 @@ metadata:
 | 改名の副作用 | データソースやリレーションを改名するとき、何が黙って変わるか | [rename-side-effects.md](references/rename-side-effects.md) | — | — |
 | APIでできないこと | 数式・ロールアップ・グループ化などを作るとき、APIで作れるか、画面で作るしかないか | [api-limits.md](references/api-limits.md) | — | — |
 | MCPで本文を書くときのリンク化 | 公式MCPでページ本文を書くとき、頼んでいないリンクができるのをどう防ぐか | [mcp-autolink.md](references/mcp-autolink.md) | — | — |
+| MCPで本文を書くときの崩れ | 公式MCPで本文を書く・書き替えるとき、表のセル・強調・置き換え・差し込む位置で崩れないよう、どう書くか | [mcp-write-pitfalls.md](references/mcp-write-pitfalls.md) | — | — |
 | コメントの扱い | コメントに関わる作業をするとき・コメントの付いた表の行や列を増減させるとき、コメントをどう取り、誰に、どの経路で返信し、スレッドをどう守るか | [comments.md](references/comments.md) | — | — |
 | 語彙DBのキャッシュ | 語彙DBを処理の中で引くとき、どう読むか | [vocabulary-cache.md](references/vocabulary-cache.md) | — | — |
 | APIの呼び方 | Notionを読み書きするコードを書くとき、どの入口から呼び、何を呼び出し側で書かないか | [client-usage.md](references/client-usage.md) | — | — |
