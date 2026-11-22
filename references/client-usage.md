@@ -1,3 +1,10 @@
+---
+sources:
+  S1:
+    name: "Notion 公式ドキュメント「Request limits」"
+    checked: "2026-10-23"
+---
+
 # APIの呼び方
 
 ## 扱うこと
@@ -27,7 +34,7 @@ Pythonから使うなら常にimport、シェル・他言語からなら `script
 呼び出し側で `time.sleep` もリトライも書かない。 レート制限と一時的な失敗の再試行は `notion_client.py` が引き受ける。
 
 1. （根拠）呼び出し側でも待つと、二重に待つことになる。（決定日：記録なし）
-2. （知見）Notion REST APIのレート制限は、Business・Enterprise 以外のプランで平均3リクエスト/秒、Business・Enterprise で平均10リクエスト/秒。（出典：Notion 公式ドキュメント「Request limits」@2026-10-23）
+2. （知見）Notion REST APIのレート制限は、Business・Enterprise 以外のプランで平均3リクエスト/秒、Business・Enterprise で平均10リクエスト/秒。（出典：S1）
 
 ### 4. 400・404などは再試行しない
 
@@ -46,7 +53,7 @@ Pythonから使うなら常にimport、シェル・他言語からなら `script
 
 `append_block_children` に渡すのは100件まで。 何件ずつどこで区切るかは呼び出し側が決める。ここでは自動で分割しない。
 
-1. （知見）APIの1リクエストの上限。ブロックを含む配列は100要素まで。101件以上は、APIに投げる前に `ValueError` で止める。（出典：Notion 公式ドキュメント「Request limits」@2026-10-23）
+1. （知見）APIの1リクエストの上限。ブロックを含む配列は100要素まで。101件以上は、APIに投げる前に `ValueError` で止める。（出典：S1）
 
 ### 7. RESTのdate型は、公式の標準形式で書く
 

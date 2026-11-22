@@ -1,3 +1,10 @@
+---
+sources:
+  S1:
+    name: "Notion-flavored Markdown の仕様（`notion://docs/enhanced-markdown-spec`）"
+    checked: "記録なし"
+---
+
 # MCPで本文を書くときのリンク化
 
 ## 扱うこと
@@ -39,7 +46,7 @@
 
 `.` をエスケープしてリンク化を防ごうとしない。
 
-1. （知見）Notion-flavored Markdownの仕様（`notion://docs/enhanced-markdown-spec`）にこの挙動の記載は無く、エスケープ対象の文字にも `.` は無い。防げると確かめたのはコード表記だけ。（出典：Notion-flavored Markdown の仕様（`notion://docs/enhanced-markdown-spec`）@記録なし）
+1. （知見）Notion-flavored Markdownの仕様（`notion://docs/enhanced-markdown-spec`）にこの挙動の記載は無く、エスケープ対象の文字にも `.` は無い。防げると確かめたのはコード表記だけ。（出典：S1）
 
 ### 5. RESTの経路では当てはまらない見込み
 
